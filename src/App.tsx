@@ -172,6 +172,8 @@ function App() {
     { value: 'pavement', label: 'Pavement' }
   ];
 
+  console.log(AIR_PORTS);
+
   const layers = [
 
 
