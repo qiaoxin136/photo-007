@@ -184,22 +184,22 @@ function App() {
       // Styles
       filled: true,
       pointType: "circle",
-      iconAtlas:
-        "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
-      iconMapping:
-        "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
-      getIcon: () => "marker",
-      getIconSize: 5,
-      getIconColor: (d: any) =>
-        d.properties.status === "true"
-          ? [80, 200, 120, 255]
-          : [220, 20, 60, 255],
-      getIconAngle: 0,
-      iconSizeUnits: "meters",
-      iconSizeScale: 3,
-      iconSizeMinPixels: 6,
-      pointRadiusMinPixels: 2,
-      pointRadiusScale: 5,
+      // iconAtlas:
+      //   "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
+      // iconMapping:
+      //   "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
+      // getIcon: () => "marker",
+      // getIconSize: 5,
+      // getIconColor: (d: any) =>
+      //   d.properties.status === "true"
+      //     ? [80, 200, 120, 255]
+      //     : [220, 20, 60, 255],
+      // getIconAngle: 0,
+      // iconSizeUnits: "meters",
+      // iconSizeScale: 3,
+      // iconSizeMinPixels: 6,
+      // pointRadiusMinPixels: 2,
+      // pointRadiusScale: 5,
       getFillColor: (d: any) =>
         d.properties.type === "water"
           ? [0, 0, 139, 255]
@@ -231,157 +231,157 @@ function App() {
       getColor: [255, 255, 255]
     }),
 
-    new MVTLayer({
-      id: "lateral",
-      data: `https://a.tiles.mapbox.com/v4/hazensawyer.0t8hy4di/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+    // new MVTLayer({
+    //   id: "lateral",
+    //   data: `https://a.tiles.mapbox.com/v4/hazensawyer.0t8hy4di/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
 
-      minZoom: 0,
-      maxZoom: 23,
-      getLineColor: [169, 169, 169, 255],
+    //   minZoom: 0,
+    //   maxZoom: 23,
+    //   getLineColor: [169, 169, 169, 255],
 
-      getFillColor: [140, 170, 180],
-      getLineWidth: 1,
+    //   getFillColor: [140, 170, 180],
+    //   getLineWidth: 1,
 
-      lineWidthMinPixels: 1,
-      pickable: true,
-      visible: checked,
-    }),
+    //   lineWidthMinPixels: 1,
+    //   pickable: true,
+    //   visible: checked,
+    // }),
 
-    new MVTLayer({
-      id: "gravity-public-pipe",
-      data: `https://a.tiles.mapbox.com/v4/hazensawyer.04mlahe9/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+    // new MVTLayer({
+    //   id: "gravity-public-pipe",
+    //   data: `https://a.tiles.mapbox.com/v4/hazensawyer.04mlahe9/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
 
-      minZoom: 0,
-      maxZoom: 23,
-      getLineColor: (f: any) =>
-        f.properties.DIAMETER < 11
-          ? [0, 163, 108, 255]
-          : f.properties.DIAMETER < 17
-            ? [218, 112, 214, 255]
-            : f.properties.DIAMETER < 25
-              ? [93, 63, 211, 255]
-              : f.properties.DIAMETER < 31
-                ? [191, 64, 191, 255]
-                : [238, 75, 43, 255],
-      getFillColor: [140, 170, 180],
-      getLineWidth: (f: any) =>
-        f.properties.DIAMETER < 7
-          ? 1
-          : f.properties.DIAMETER < 11
-            ? 3
-            : f.properties.DIAMETER < 17
-              ? 5
-              : f.properties.DIAMETER < 25
-                ? 7
-                : f.properties.DIAMETER < 31
-                  ? 9
-                  : 11,
+    //   minZoom: 0,
+    //   maxZoom: 23,
+    //   getLineColor: (f: any) =>
+    //     f.properties.DIAMETER < 11
+    //       ? [0, 163, 108, 255]
+    //       : f.properties.DIAMETER < 17
+    //         ? [218, 112, 214, 255]
+    //         : f.properties.DIAMETER < 25
+    //           ? [93, 63, 211, 255]
+    //           : f.properties.DIAMETER < 31
+    //             ? [191, 64, 191, 255]
+    //             : [238, 75, 43, 255],
+    //   getFillColor: [140, 170, 180],
+    //   getLineWidth: (f: any) =>
+    //     f.properties.DIAMETER < 7
+    //       ? 1
+    //       : f.properties.DIAMETER < 11
+    //         ? 3
+    //         : f.properties.DIAMETER < 17
+    //           ? 5
+    //           : f.properties.DIAMETER < 25
+    //             ? 7
+    //             : f.properties.DIAMETER < 31
+    //               ? 9
+    //               : 11,
 
-      lineWidthMinPixels: 1,
-      pickable: true,
-      visible: checked,
-    }),
+    //   lineWidthMinPixels: 1,
+    //   pickable: true,
+    //   visible: checked,
+    // }),
 
-    new MVTLayer({
-      id: "gravity-private-pipe",
-      data: `https://a.tiles.mapbox.com/v4/hazensawyer.dhp8w8ur/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+    // new MVTLayer({
+    //   id: "gravity-private-pipe",
+    //   data: `https://a.tiles.mapbox.com/v4/hazensawyer.dhp8w8ur/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
 
-      minZoom: 0,
-      maxZoom: 23,
-      getLineColor: (f: any) =>
-        f.properties.DIAMETER < 11
-          ? [0, 163, 108, 255]
-          : f.properties.DIAMETER < 17
-            ? [218, 112, 214, 255]
-            : f.properties.DIAMETER < 25
-              ? [93, 63, 211, 255]
-              : f.properties.DIAMETER < 31
-                ? [191, 64, 191, 255]
-                : [238, 75, 43, 255],
+    //   minZoom: 0,
+    //   maxZoom: 23,
+    //   getLineColor: (f: any) =>
+    //     f.properties.DIAMETER < 11
+    //       ? [0, 163, 108, 255]
+    //       : f.properties.DIAMETER < 17
+    //         ? [218, 112, 214, 255]
+    //         : f.properties.DIAMETER < 25
+    //           ? [93, 63, 211, 255]
+    //           : f.properties.DIAMETER < 31
+    //             ? [191, 64, 191, 255]
+    //             : [238, 75, 43, 255],
 
-      getFillColor: [140, 170, 180],
-      getLineWidth: (f: any) =>
-        f.properties.DIAMETER < 7
-          ? 1
-          : f.properties.DIAMETER < 11
-            ? 3
-            : f.properties.DIAMETER < 17
-              ? 5
-              : f.properties.DIAMETER < 25
-                ? 7
-                : f.properties.DIAMETER < 31
-                  ? 9
-                  : 11,
+    //   getFillColor: [140, 170, 180],
+    //   getLineWidth: (f: any) =>
+    //     f.properties.DIAMETER < 7
+    //       ? 1
+    //       : f.properties.DIAMETER < 11
+    //         ? 3
+    //         : f.properties.DIAMETER < 17
+    //           ? 5
+    //           : f.properties.DIAMETER < 25
+    //             ? 7
+    //             : f.properties.DIAMETER < 31
+    //               ? 9
+    //               : 11,
 
-      lineWidthMinPixels: 1,
-      pickable: true,
-      visible: checked,
-    }),
+    //   lineWidthMinPixels: 1,
+    //   pickable: true,
+    //   visible: checked,
+    // }),
 
-    new MVTLayer({
-      id: "fmpipe",
-      data: `https://a.tiles.mapbox.com/v4/hazensawyer.4hfx5po8/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+    // new MVTLayer({
+    //   id: "fmpipe",
+    //   data: `https://a.tiles.mapbox.com/v4/hazensawyer.4hfx5po8/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
 
-      minZoom: 0,
-      maxZoom: 23,
-      getLineColor: (f: any) =>
-        f.properties.DIAMETER < 10
-          ? [128, 0, 32, 255]
-          : f.properties.DIAMETER < 20
-            ? [233, 116, 81, 255]
-            : [255, 195, 0, 255],
-      getFillColor: [140, 170, 180],
-      getLineWidth: (f: any) =>
-        f.properties.DIAMETER < 7
-          ? 1
-          : f.properties.DIAMETER < 11
-            ? 3
-            : f.properties.DIAMETER < 17
-              ? 4
-              : f.properties.DIAMETER < 25
-                ? 5
-                : f.properties.DIAMETER < 31
-                  ? 6
-                  : 7,
+    //   minZoom: 0,
+    //   maxZoom: 23,
+    //   getLineColor: (f: any) =>
+    //     f.properties.DIAMETER < 10
+    //       ? [128, 0, 32, 255]
+    //       : f.properties.DIAMETER < 20
+    //         ? [233, 116, 81, 255]
+    //         : [255, 195, 0, 255],
+    //   getFillColor: [140, 170, 180],
+    //   getLineWidth: (f: any) =>
+    //     f.properties.DIAMETER < 7
+    //       ? 1
+    //       : f.properties.DIAMETER < 11
+    //         ? 3
+    //         : f.properties.DIAMETER < 17
+    //           ? 4
+    //           : f.properties.DIAMETER < 25
+    //             ? 5
+    //             : f.properties.DIAMETER < 31
+    //               ? 6
+    //               : 7,
 
-      lineWidthMinPixels: 1,
-      pickable: true,
-      visible: checked,
-    }),
+    //   lineWidthMinPixels: 1,
+    //   pickable: true,
+    //   visible: checked,
+    // }),
 
-    new MVTLayer({
-      id: "mh",
-      data: `https://a.tiles.mapbox.com/v4/hazensawyer.56zc2nx5/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
-      minZoom: 15,
-      maxZoom: 23,
-      filled: true,
-      getIconAngle: 0,
-      getIconColor: [0, 0, 0, 255],
-      getIconPixelOffset: [-2, 2],
-      getIconSize: 3,
-      // getText: (f) => f.properties.FACILITYID,
-      getPointRadius: 2,
-      getTextAlignmentBaseline: "center",
-      getTextAnchor: "middle",
-      getTextAngle: 0,
-      getTextBackgroundColor: [0, 0, 0, 255],
-      getTextBorderColor: [0, 0, 0, 255],
-      getTextBorderWidth: 0,
-      getTextColor: [0, 0, 0, 255],
-      getTextPixelOffset: [-12, -12],
-      getTextSize: 20,
-      pointRadiusMinPixels: 2,
+    // new MVTLayer({
+    //   id: "mh",
+    //   data: `https://a.tiles.mapbox.com/v4/hazensawyer.56zc2nx5/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+    //   minZoom: 15,
+    //   maxZoom: 23,
+    //   filled: true,
+    //   getIconAngle: 0,
+    //   getIconColor: [0, 0, 0, 255],
+    //   getIconPixelOffset: [-2, 2],
+    //   getIconSize: 3,
+    //   // getText: (f) => f.properties.FACILITYID,
+    //   getPointRadius: 2,
+    //   getTextAlignmentBaseline: "center",
+    //   getTextAnchor: "middle",
+    //   getTextAngle: 0,
+    //   getTextBackgroundColor: [0, 0, 0, 255],
+    //   getTextBorderColor: [0, 0, 0, 255],
+    //   getTextBorderWidth: 0,
+    //   getTextColor: [0, 0, 0, 255],
+    //   getTextPixelOffset: [-12, -12],
+    //   getTextSize: 20,
+    //   pointRadiusMinPixels: 2,
 
-      // getPointRadius: (f) => (f.properties.PRESSURE < 45 ? 6 : 3),
-      getFillColor: [255, 195, 0, 255],
-      // Interactive props
-      pickable: true,
-      visible: checked,
-      autoHighlight: true,
-      // ...choice,
-      // pointRadiusUnits: "pixels",
-      pointType: "circle+text",
-    }),
+    //   // getPointRadius: (f) => (f.properties.PRESSURE < 45 ? 6 : 3),
+    //   getFillColor: [255, 195, 0, 255],
+    //   // Interactive props
+    //   pickable: true,
+    //   visible: checked,
+    //   autoHighlight: true,
+    //   // ...choice,
+    //   // pointRadiusUnits: "pixels",
+    //   pointType: "circle+text",
+    // }),
 
     new MVTLayer({
       id: "wMain",
@@ -409,6 +409,25 @@ function App() {
       minZoom: 0,
       maxZoom: 23,
       getLineColor: [50, 205, 50, 255],
+      opacity: 0.5,    
+      getFillColor: [140, 170, 180],
+      getLineWidth: 0.2,
+      lineWidthMinPixels: 1,
+      getDashArray: [10, 8],
+      dashJustified: true,
+      dashGapPickable: true,
+      extensions: [new PathStyleExtension({ dash: true })],
+      pickable: true,
+      visible: checked,
+    }),
+
+    new MVTLayer({
+      id: "sDrain",
+      data: `https://a.tiles.mapbox.com/v4/hazensawyer.6439un68/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmNGQ3MDgyMTE3YjQzcnE1djRpOGVtNiJ9.U06GItbSVWFTsvfg9WwQWQ`,
+
+      minZoom: 0,
+      maxZoom: 23,
+      getLineColor: [255, 127, 80, 255],
       opacity: 0.5,    
       getFillColor: [140, 170, 180],
       getLineWidth: 0.2,
@@ -809,7 +828,7 @@ function App() {
 
   return (
     <main>
-      <h1>Lift Station A-19 Force Main Replacement Project</h1>
+      <h1>Washington Park Project</h1>
       <Divider orientation="horizontal" />
       <br />
       <Flex>
