@@ -1,6 +1,6 @@
 export interface WaterFeatureProperties {
   id: string;
-  survey_date: string;
+  date: string;
   time: string;
   description: string;
   track: string;

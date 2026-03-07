@@ -682,8 +682,8 @@ function App() {
                         <table className="popup-table">
                           <tbody>
                             <tr>
-                              <td>Survey Date</td>
-                              <td>{popupInfo.properties.survey_date}</td>
+                              <td>Date</td>
+                              <td>{popupInfo.properties.date}</td>
                             </tr>
                             {popupInfo.properties.description && (
                               <tr>
