@@ -1,11 +1,11 @@
-import type { ChangeEvent, /* SyntheticEvent */ } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { checkLoginAndGetName } from "./utils/AuthUtils";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { generateClient } from "aws-amplify/data";
 import "@aws-amplify/ui-react/styles.css";
-import { /* uploadData, */ remove } from "aws-amplify/storage";
+import { uploadData, remove } from "aws-amplify/storage";
 import { StorageImage } from "@aws-amplify/ui-react-storage"; //Hong
 
 import type { MapMouseEvent } from "mapbox-gl";
@@ -13,7 +13,7 @@ import type { MapMouseEvent } from "mapbox-gl";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 //import { useGeoJSON } from './useGeoJSON';
-import { FeaturePopup } from './FeaturePopup';
+
 import type { WaterFeatureProperties } from './types';
 import './MapView.css';
 
@@ -30,10 +30,11 @@ import {
   Layer,
   //useControl,
   //Popup,
-  //Marker,
+  Marker,
   NavigationControl,
   GeolocateControl,
-  ScaleControl
+  ScaleControl,
+  Popup
 } from "react-map-gl";
 
 
@@ -65,6 +66,10 @@ import "@aws-amplify/ui-react/styles.css";
 import "@aws-amplify/ui-react/styles.css";
 
 //import { IconLayer } from "@deck.gl/layers/typed";
+
+
+//import type { WaterFeatureProperties } from './types';
+import './FeaturePopup.css';
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoiaGF6ZW5zYXd5ZXIiLCJhIjoiY2xmMnY0NzE1MGMzMjNycGp6bDQwcWZsNyJ9.1JJeWIQgrykU5b3oqSr1sQ";
 const client = generateClient<Schema>();
@@ -162,7 +167,7 @@ function App() {
   const [description, setDescription] = useState<string>("");
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-  //const [placePhotos, setPlacePhotos] = useState<File[]>([]);
+  const [placePhotos, setPlacePhotos] = useState<File[]>([]);
 
   const [tab, setTab] = useState("1");
 
@@ -319,81 +324,81 @@ function App() {
 
 
 
-  // async function handleSubmit(event: SyntheticEvent, id: string) {
-  //   event.preventDefault();
-  //   //console.log(id);
-  //   //console.log(userName);
+  async function handleSubmit(event: SyntheticEvent, id: string) {
+    event.preventDefault();
+    //console.log(id);
+    //console.log(userName);
 
-  //   if (userName) {
-  //     let placePhotosUrls: string[] = [];
-  //     console.log("before submit, photoes size ", placePhotos.length);
-  //     const uploadResult = await uploadPhotos(placePhotos, id)   //Hong
-  //     placePhotosUrls = uploadResult.urls;
+    if (userName) {
+      let placePhotosUrls: string[] = [];
+      console.log("before submit, photoes size ", placePhotos.length);
+      const uploadResult = await uploadPhotos(placePhotos, id)   //Hong
+      placePhotosUrls = uploadResult.urls;
 
-  //     const currentLoc = await client.models.Location.get({
-  //       id: id
-  //     })
+      const currentLoc = await client.models.Location.get({
+        id: id
+      })
 
-  //     let revised: string[] = []
-  //     if (currentLoc.data?.photos) {
-  //       currentLoc.data.photos.forEach(
-  //         (d) => {
-  //           d ? revised.push(d) : null
-  //         }
-  //       )
-  //     }
+      let revised: string[] = []
+      if (currentLoc.data?.photos) {
+        currentLoc.data.photos.forEach(
+          (d) => {
+            d ? revised.push(d) : null
+          }
+        )
+      }
 
-  //     await client.models.Location.update({
-  //       id: id,
-  //       photos: [...placePhotosUrls, ...revised]
+      await client.models.Location.update({
+        id: id,
+        photos: [...placePhotosUrls, ...revised]
 
-  //     })
+      })
 
 
-  //     clearFields();
-  //   }
-  // }
+      clearFields();
+    }
+  }
 
-  // function clearFields() {
-  //   //setuserName('');
-  //   setPlacePhotos([]);
-  // }
+  function clearFields() {
+    //setuserName('');
+    setPlacePhotos([]);
+  }
 
-  // async function uploadPhotos(files: File[], id: string): Promise<{
-  //   urls: string[]
+  async function uploadPhotos(files: File[], id: string): Promise<{
+    urls: string[]
 
-  // }> {
-  //   const urls: string[] = [];
-  //   console.log('start to upload photos')
-  //   console.log('# of files', files.length)
+  }> {
+    const urls: string[] = [];
+    console.log('start to upload photos')
+    console.log('# of files', files.length)
 
-  //   for (const file of files) {
-  //     console.log(`uploading file ${file.name}`)
-  //     const result = await uploadData({
-  //       data: file,
-  //       path: `originals/${id}/${file.name}`
-  //     }).result
-  //     urls.push(result.path);
-  //     console.log('url is ', urls);
+    for (const file of files) {
+      console.log(`uploading file ${file.name}`)
+      const result = await uploadData({
+        data: file,
+        path: `originals/${id}/${file.name}`
+      }).result
+      urls.push(result.path);
+      console.log('url is ', urls);
 
-  //   }
-  //   return {
-  //     urls,
+    }
+    return {
+      urls,
 
-  //   };
-  // }
+    };
+  }
 
   //Hong's addition
-  // function previewPhotos(event: CustomEvent) {
+  function previewPhotos(event: CustomEvent) {
 
-  //   if (event.target.files) {
-  //     const eventPhotos = Array.from(event.target.files);
-  //     //const newFiles: File[] = [...new Set([...eventPhotos, ...placePhotos])]
-  //     //console.log("newFiles =", newFiles)
-  //     //setPlacePhotos(newFiles);
-  //     setPlacePhotos(eventPhotos)
-  //   }
-  // }
+    if (event.target.files) {
+      const eventPhotos = Array.from(event.target.files);
+      //const newFiles: File[] = [...new Set([...eventPhotos, ...placePhotos])]
+      //console.log("newFiles =", newFiles)
+      //setPlacePhotos(newFiles);
+      setPlacePhotos(eventPhotos)
+    }
+  }
 
   function renderPhotos() {
 
@@ -479,14 +484,23 @@ function App() {
 
   const onClick = useCallback((e: MapMouseEvent) => {
     const feature = e.features?.[0];
-    console.log("clicked feature =", feature);
-    if (!feature || feature.geometry.type !== 'Point') return;
-    const [lng, lat] = feature.geometry.coordinates;
-    setPopupInfo({
-      longitude: lng,
-      latitude: lat,
-      properties: feature.properties as WaterFeatureProperties,
-    });
+    
+    //console.log("clicked feature =", feature);
+    if (!feature || feature.geometry.type !== 'Point') {
+      //console.log(e);
+      setLat(e.lngLat.lat);
+      setLng(e.lngLat.lng);
+      setPopupInfo(null);
+     } 
+    else {
+      
+      const [lng, lat] = feature.geometry.coordinates;
+      setPopupInfo({
+        longitude: lng,
+        latitude: lat,
+        properties: feature.properties as WaterFeatureProperties,
+      })
+    };
   }, []);
 
   const onMouseEnter = useCallback(() => setCursor('pointer'), []);
@@ -649,13 +663,72 @@ function App() {
                     }}
                   />
                 </Source>
+                <Marker latitude={Number(lat)} longitude={Number(lng)} />
                 {popupInfo && (
-                  <FeaturePopup
-                    longitude={popupInfo.longitude}
-                    latitude={popupInfo.latitude}
-                    properties={popupInfo.properties}
-                    onClose={() => setPopupInfo(null)}
-                  />
+                  <>
+                    <Popup
+                      longitude={popupInfo.longitude}
+                      latitude={popupInfo.latitude}
+                      anchor="bottom"
+                      offset={12}
+                      onClose={() => setPopupInfo(null)}
+                      closeOnClick={false}
+                    >
+                      <div className="popup">
+                        <h3 className="popup-title">
+                          <span className="popup-type-badge">{popupInfo.properties.type}</span>
+                          Water Infrastructure
+                        </h3>
+                        <table className="popup-table">
+                          <tbody>
+                            <tr>
+                              <td>Survey Date</td>
+                              <td>{popupInfo.properties.survey_date}</td>
+                            </tr>
+                            {popupInfo.properties.description && (
+                              <tr>
+                                <td>Description</td>
+                                <td>{popupInfo.properties.description}</td>
+                              </tr>
+                            )}
+                            <tr>
+                              <td>Track</td>
+                              <td>{popupInfo.properties.track}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <Button
+                          onClick={() => {
+                            //console.log("clickinfo =" + clickInfo);
+                            deleteLocation(popupInfo.properties.id);
+                            setPopupInfo(null);
+                            //setShowPopup(false);
+                          }}
+                        >
+                          Delete{" "}
+                        </Button>
+                        <br />
+                        <label>Place photos:</label><br />
+                        <input type="file" multiple
+                          onChange={(e) => previewPhotos(e)}
+                          placeholder="new picture"
+                        /><br />
+
+                        <Button
+                          onClick={(e) => {
+                            console.log(popupInfo.properties);
+                            handleSubmit(e, popupInfo.properties.id);
+                            setPopupInfo(null);
+                            //setShowPopup(false);
+                          }}
+                        >
+                          Upload
+                        </Button>
+                      </div>
+                    </Popup>
+
+                  </>
+
                 )}
 
                 {/* {clickInfo && (
@@ -705,16 +778,6 @@ function App() {
                   trackUserLocation={true}
                   // Draw an arrow next to the location dot to indicate which direction the device is heading.
                   showUserHeading={true} />
-                {/* {showPopup && (
-                    <Popup
-                      longitude={-80.22}
-                      latitude={26.0}
-                      anchor="bottom"
-                      onClose={() => setShowPopup(false)}
-                    >
-                      You are here
-                    </Popup>
-                  )} */}
               </Map>
             </>)
           },
