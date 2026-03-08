@@ -484,16 +484,16 @@ function App() {
 
   const onClick = useCallback((e: MapMouseEvent) => {
     const feature = e.features?.[0];
-    
+
     //console.log("clicked feature =", feature);
     if (!feature || feature.geometry.type !== 'Point') {
       //console.log(e);
       setLat(e.lngLat.lat);
       setLng(e.lngLat.lng);
       setPopupInfo(null);
-     } 
+    }
     else {
-      
+
       const [lng, lat] = feature.geometry.coordinates;
       setPopupInfo({
         longitude: lng,
@@ -572,15 +572,15 @@ function App() {
           onChange={handleLength}
         //width="150%"
         />
-        <input
+        <Input
           type="text"
           value={description}
           placeholder="description"
           onChange={handleDescription}
-        //width="150%"
+          width="800px"
         />
-        <Input type="number" value={Number(lat.toFixed(10))} />
-        <Input type="number" value={Number(lng.toFixed(10))} />
+        {/* <Input type="number" value={Number(lat.toFixed(10))} />
+        <Input type="number" value={Number(lng.toFixed(10))} /> */}
       </Flex>
       <Divider orientation="horizontal" />
       <br />
@@ -619,13 +619,14 @@ function App() {
                     type='circle'
                     source='water-data'
                     paint={{
-                      'circle-radius': [
-                        'interpolate', ['linear'], ['zoom'],
-                        12, 6,
-                        16, 10,
-                        20, 16,
-                      ],
-                      'circle-color': '#2b6cb0',
+                      'circle-radius': 6,
+                      'circle-color': [
+                        'match',
+                        ['get', 'type'],
+                        'water', '#2b6cb0', // Diameter of exactly 10 is red
+                        "wastewater", '#2ea160', // Diameter of exactly 20 is green
+                        '#eca4a4'         // Fallback color for any other value
+                      ]/* '#2b6cb0' */,
                       'circle-stroke-color': '#ffffff',
                       'circle-stroke-width': 2,
                       'circle-opacity': 0.9,
@@ -643,22 +644,37 @@ function App() {
                       'line-width': 1,
                       // Use a get expression (https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/expressions/#get)
                       // to set the line-color to a feature property value.
-                      'line-color': "#97bcef",
+                      'line-color': "#2b6cb0",
                       'line-dasharray': [4, 2]
                     }}
                   />
                 </Source>
-                <Source id="gravity" type="vector" url="mapbox://hazensawyer.54mpxvz3">
+                <Source id="sgravity" type="vector" url="mapbox://hazensawyer.54mpxvz3">
                   <Layer
                     id='gravity-lines'
                     type='line'
-                    source='gravity'
+                    source='sgravity'
                     source-layer="sGravity-d079ci"
                     paint={{
                       'line-width': 1,
                       // Use a get expression (https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/expressions/#get)
                       // to set the line-color to a feature property value.
-                      'line-color': "#94edbb",
+                      'line-color': "#2ea160",
+                      'line-dasharray': [4, 2]
+                    }}
+                  />
+                </Source>
+                <Source id="sdrain" type="vector" url="mapbox://hazensawyer.6439un68">
+                  <Layer
+                    id='storm-lines'
+                    type='line'
+                    source='sdrain'
+                    source-layer="sDrain-7lho1y"
+                    paint={{
+                      'line-width': 1,
+                      // Use a get expression (https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/expressions/#get)
+                      // to set the line-color to a feature property value.
+                      'line-color': "#eca4a4",
                       'line-dasharray': [4, 2]
                     }}
                   />
