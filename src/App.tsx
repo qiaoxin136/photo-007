@@ -515,7 +515,7 @@ function App() {
     } else if (value === "street") {
       setBasemap("mapbox://styles/mapbox/streets-v12")
     } else if (value === "satellite") {
-      setBasemap("mapbox://styles/mapbox/satellite-v9")
+      setBasemap("mapbox://styles/hazensawyer/clf4dasal001301qvxatwv8md")
     }
   };
 
